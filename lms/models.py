@@ -82,6 +82,8 @@ class Resources(db.Model):
     def __repr__(self):
         return f"Resources('{self.id}', '{self.title}','{self.type}','{self.categories}','{self.author}', '{self.pages}', '{self.content}', '{self.img_reference}')"
 
+
+
 admin.add_view(ModelView(User, db.session))
 admin.add_view(ModelView(Usercourse, db.session))
 admin.add_view(ModelView(Courses, db.session))

@@ -1,3 +1,4 @@
+from unicodedata import category
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, BooleanField
 from wtforms.validators import DataRequired,Length, Email, EqualTo 
@@ -36,4 +37,13 @@ class Registerinstructor(FlaskForm):
     coursecode = StringField('coursecode', render_kw={'placeholder':'Enter coursecode'}, validators=[DataRequired()])
     rememberme = BooleanField('Keep me logged in? ')
     
+    submit = SubmitField('Sign Up')
+
+class Addcourse(FlaskForm):
+   
+    title = StringField('title', render_kw={'placeholder':'Title'}, validators=[DataRequired()])
+    description = StringField(' ')
+    category =StringField('category', validators=[DataRequired()])
+    duration = StringField('duration', render_kw={'placeholder':'Enter duration'}, validators=[DataRequired()])
+    image = StringField('image', render_kw={'placeholder':'img'}, validators=[DataRequired()])
     submit = SubmitField('Sign Up')

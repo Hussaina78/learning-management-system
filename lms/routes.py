@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request ,send_from_directory,make_response,jsonify
 from lms import app,db,bcrypt
-from .forms import Logininstructor, Registration,Login,Registerinstructor
+from .forms import Logininstructor, Registration,Login,Registerinstructor, Addcourse
 from .models import User, Courses, Usercourse, Discussion, Subunits, Resources
 from flask_login import login_user, current_user, logout_user, login_required
 from werkzeug.utils import secure_filename
@@ -252,6 +252,34 @@ def registerinstructor():
             db.session.commit()
             return redirect(url_for('instructordashboard'))
     return render_template('registerinstructor.html',form = Registerinstructor())# alternatively you can use form = register
+
+
+@app.route('/addcourse', methods=['GET' ,'POST'])
+def addcourse():
+    form = Addcourse()
+    if request.method == "POST":
+        form = request.form #is this right
+        email = request.form['email']
+        password = request.form['password']
+        remember = request.form['rememberme']
+        user = request.form['user']
+        
+        role = 'instructor'
+
+        print(User.query.filter_by(email=email).first().email)
+        if User.query.filter_by(email=email).first().email == email:
+            flash('Email Address already Exists', 'danger')
+        else:
+            hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+            user = User(name=user.lower(),email=email.lower(),password=hashed_password,role='instructor')
+            db.session.add(user)
+            db.session.commit()
+            return redirect(url_for('instructordashboard'))
+    return render_template('instructordashboard/addcourse.html',form = Addcourse())# alternatively you can use form = register
+       
+        
+
+    
     
 @app.route("/logout", methods=['GET', 'POST'])
 @login_required
