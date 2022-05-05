@@ -1,0 +1,75 @@
+{% extends 'layout.html'%}
+{% block container %}
+<!--  the message above indicates to start the container-->
+
+
+
+    <!-- Contact Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3" style="margin-bottom: 30px;"> Instructor Register</h6>
+                <br>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-6 col-md-12 wow fadeInUp" data-wow-delay="0.5s">
+                    <form>
+                        <div class="row g-3">
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                   <!-- <input type="email" class="form-control" id="email" placeholder="Your Email">
+                                    <label for="email">Your Email</label> -->
+                                    {{ form.email.label }} {{ form.email(class = "form-control") }}
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                   <!-- <input type="email" class="form-control" id="email" placeholder="Your Email">
+                                    <label for="email">Your Email</label> -->
+                                    {{ form.username.label }} {{ form.username(class = "form-control") }}
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                   <!-- <input type="password" class="form-control" id="name" placeholder="Password">
+                                    <label for="name">Password</label>-->
+                                    {{ form.password.label }} {{ form.password(class = "form-control") }}
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <!-- <input type="password" class="form-control" id="name" placeholder="Password">
+                                    <label for="name">Enter username</label> -->
+                                    {{ form.confirmpassword.label }} {{ form.confirmpassword(class = "form-control") }}
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-floating">
+                                      <!--  <input type="password" class="form-control" id="name" placeholder="Password">
+                                        <label for="name">Course code</label>-->
+                                        {{ form.coursecode.label }} {{ form.coursecode(class = "form-control") }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                    <input type="checkbox" id="name">
+                                    <label for="name">Do you want me to stay logged in</label>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary w-100 py-3" type="submit">Sign up</button>
+                            </div>
+                            </div>
+                    </form>
+                </div>
+               
+                
+            </div>
+        </div>
+    </div>
+    <!-- Contact End -->
+
+
+
+
+
+{% endblock%}

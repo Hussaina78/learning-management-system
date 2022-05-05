@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<title>Dashboard</title>
+	
+    <!-- Libraries Stylesheet -->
+    <link href="{{ url_for('static', filename='lib/animate/animate.min.css') }}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{{ url_for('static', filename='lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+
+
+    <!-- Template Stylesheet -->
+    <link href="{{ url_for('static', filename='fonts//icomoon/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/dashboard.css') }}" rel="stylesheet">
+</head>
+<style type="text/css">
+   .bg-primary {
+    background-color: #883a8e !important;
+}
+</style>
+<body>
+    <i class="icon-bars"></i>
+    <nav>
+        <br>
+        <br>
+        <br>
+        <ul>
+            <li class="active"><a href="/dashboard"><i class="icon-dashboard"></i><span> Dashboard</span> </a></li>
+            <li><a href="/courses"> <i class="icon-globe"></i> <span> Courses </span> </a></li>
+            <li><a href="/resources"> <i class="icon-hdd-o"></i> <span> Resources </span> </a></li>
+            <li><a href="/challenge"> <i class="icon-child"></i> <span> Chat </span> </a></li>
+            <li><a href="/discussion"> <i class="icon-square"> </i><span> Discussion </span> </a></li>
+            <li><a href="/logout"> <i class="icon-power-off"> </i> <span> Log out </span> </a></li>
+        </ul>
+        
+        
+           
+       
+        <br>
+    </nav>
+    <main>
+        <div class="row container-fluid" style="margin: 0;padding: 0;">
+            <div class="col-md-8">
+                <div class="intro-div">
+                    <b>Dashboard</b>
+                    <span id="time" class="time"></span>
+                </div>
+                <br>
+                <div class="jumbotron">
+                    <br><br>
+                    <h4>Welcome back, {{current_user.name|upper}}. </h4>
+                    <span>You've Learnt about 0% of your goals this week</span> <br>
+                    <span>Keep it up to improve your results</span>
+                    <br><br>
+                </div>
+                <div>
+                    <header>My Available Courses</header>
+                    <div style="background-color: white;padding: 10px;border-radius:5px;">
+                    {% for i in data  %}
+                    <div style="display: flex;align-items: center;" class="perf">
+                        
+                        <div class="iota">
+                            <div style="display: flex;align-items: center;justify-content: space-between;">
+                            <span style="font-size: 90%; font-family: 'Open Sans Regular'; font-weight: 600; color: #232323;">{{i.usercourse.title}}</span>
+                            <a href="/courseinfo/{{i.usercourse.id}}" style="width: 99px;"><span class="a1">Go to Course</span></a>
+                            </div>
+                            <div style="display: flex;align-items: center;justify-content: space-between;">
+                                <span class="evaluation">{{i.usercourse.description}}</span>
+                                <div class="progress" style="height:7px;width: 80px;">
+                                    <div class="progress-bar" style="width:{{i.progress}}%;height:7px"></div>
+                                </div>
+                            </div>
+                             
+                        </div>
+                        
+                    </div>
+                    {% endfor %}
+                    </div>
+                </div>
+                <header></header>
+            </div>
+            <div class="col-md-4">
+                <div class="calendar calendar-first" id="calendar_first">
+				    <div class="calendar_header">
+				        <button class="switch-month switch-left"> <i class="fa fa-chevron-left"></i></button>
+				         <h2></h2>
+				        <button class="switch-month switch-right"> <i class="fa fa-chevron-right"></i></button>
+				    </div>
+				    <div class="calendar_weekdays"></div>
+				    <div class="calendar_content"></div>
+					</div>
+            </div>
+        </div>
+        
+
+    </main>
+</body>
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='lib/wow/wow.min.js') }}"></script>
+<script src="{{ url_for('static', filename='lib/easing/easing.min.js') }}"></script>
+<script src="{{ url_for('static', filename='lib/waypoints/waypoints.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+<script src="{{url_for('static', filename='js/main1.js')}}" ></script>
+<script>
+    var d = new Date();
+    document.getElementById("time").innerHTML = d.toDateString();
+    
+</script>
+</html>

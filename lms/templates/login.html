@@ -1,0 +1,65 @@
+{% extends 'layout.html'%}
+{% block container %}
+<!--  the message above indicates to start the container-->
+
+
+
+    <!-- Contact Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3" style="margin-bottom: 30px;">Login</h6>
+                <br>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-6 col-md-12 wow fadeInUp" data-wow-delay="0.5s">
+                    <form method = 'POST'> 
+                        <div class="row g-3">
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                  <!--  <input type="email" class="form-control" id="email" placeholder="Your Email">
+                                    <label for="email">Your Email</label> -->
+                                    {{ form.email.label }} {{ form.email(class = "form-control") }}
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                  <!--   <input type="password" class="form-control" id="name" placeholder="Password">
+                                    <label for="name">Password</label> -->
+                                    {{form.password.label }} {{form.password(class = "form-control")}}
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                 <!--  <input type="checkbox" id="name">
+                                    <label for="name">Remember Me </label>--> 
+                                   {{form.rememberme}}  {{form.rememberme.label }} 
+                            </div>
+                           
+                            <div class="col-12">
+                                <button class="btn btn-primary w-100 py-3" type="submit">Login</button>
+                            </div>
+                            <div class="col-12">
+                                <a href="/register" class="btn btn-primary w-100 py-3" type="submit">Register</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.1s" style="text-align: center;">
+                    <h3 style="margin-bottom: 10px;text-align: center;">New to this site?</h3>
+                    <p class="mb-4" style="text-align: center;">Create an account and explore the benefits of this site!
+                        <br><br>
+                        Create an account by clicking the button below ,or login using other options provided.</p>
+                        <a href="/register" style="text-align: center;" class="btn btn-primary py-md-3 px-md-5 animated slideInRight">Create new account</a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <!-- Contact End -->
+
+
+
+
+
+{% endblock%}

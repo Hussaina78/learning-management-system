@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<title>Dashboard</title>
+	
+    <!-- Libraries Stylesheet -->
+    <link href="{{ url_for('static', filename='lib/animate/animate.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+
+
+    <!-- Template Stylesheet -->
+    <link href="{{ url_for('static', filename='fonts//icomoon/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/dashboard.css') }}" rel="stylesheet">
+</head>
+<style type="text/css">
+    .btn.btn-primary{
+        border-radius: 9px;
+        margin-right: 5px;
+    }
+    .card-img, .card-img-top {
+        width: 100%;
+        height: 260px;
+    }
+    .card {
+        width: 99% !important;
+        margin: 20px;}
+</style>
+<body>
+    <i class="icon-bars"></i>
+    <nav>
+        <br>
+        <br>
+        <br>
+        <ul>
+            <li ><a href="/dashboard"><i class="icon-dashboard"></i><span> Dashboard</span> </a></li>
+            <li class="active"><a href="/courses"> <i class="icon-globe"></i> <span> Courses </span> </a></li>
+            <li><a href="/resources"> <i class="icon-hdd-o"></i> <span> Resources </span> </a></li>
+            <li><a href="challenge.php"> <i class="icon-child"></i> <span> Challenge </span> </a></li>
+            <li><a href="Q&A.php"> <i class="icon-square"> </i><span> Q and A </span> </a></li>
+            <li><a href="settings.php"> <i class="icon-gears"> </i> <span> Settings </span> </a></li>
+            <li><a href="/logout"> <i class="icon-power-off"> </i> <span> Log out </span> </a></li>
+        </ul>
+        
+        
+           
+       
+        <br>
+    </nav>
+    <main>
+        <div class="intro-div">
+            <b>Courses</b>
+            <span id="time" class="time"></span>
+        </div>
+        <br>
+        <div style="display: flex;justify-content: space-between;align-items: center;">
+
+            <h5> Categories </h5>
+       
+            <a href= "#" class="btn btn-primary">View All</a>
+            
+        </div>
+        <div>
+                     
+            <a class="btn btn-primary" href="#" role="button">All</a>
+            <a class="btn btn-primary" href="#" role="button">Programming</a>
+            <a class="btn btn-primary" href="#" role="button">English</a>
+            <a class="btn btn-primary" href="#" role="button">Maths</a>
+            <a class="btn btn-primary" href="#" role="button">Robotics</a>
+            <a class="btn btn-primary" href="#" role="button">Other</a>
+            <a class="btn btn-primary" href="#" role="button">Life Skills</a>
+            
+
+        </div>
+       
+       
+        <br>
+        <br>
+        <div style="display:flex;justify-content:space-between;align-items: center;">
+            <h5>Courses</h5>
+        </div>
+        <div class="row">
+            {% for x in data %}
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{ url_for('static', filename='img/') }}{{x.image}}" class="card-img-top" alt="">
+                    <div class="card-body">
+                      <h5 class="card-title">{{x.title}}</h5>
+                      <p class="card-text">{{x.description}}</p>
+                      <a href="#" class="btn btn-primary">Enroll</a>
+                    </div>
+                  </div>
+            </div>    
+            
+            {% endfor %}
+            
+                           
+        </div>
+
+     
+    </main>
+</body>
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='lib/wow/wow.min.js') }}"></script>
+<script src="{{ url_for('static', filename='lib/easing/easing.min.js') }}"></script>
+<script src="{{ url_for('static', filename='lib/waypoints/waypoints.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+<script>
+    var d = new Date();
+    document.getElementById("time").innerHTML = d.toDateString();
+</script>
+</html>
