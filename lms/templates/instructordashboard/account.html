@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,12 +30,12 @@
         <br>
         <ul>
             <li ><a href="/instructordashboard"><i class="icon-dashboard"></i><span> Instructor Dashboard</span> </a></li>
-            <li><a href="/account"> <i class="icon-globe"></i> <span>Account </span> </a></li>
+            <li class="active"><a href="/account"> <i class="icon-globe"></i> <span>Account </span> </a></li>
             <li><a href="/courses"> <i class="icon-globe"></i> <span> Courses </span> </a></li>
             <li><a href="/resources"> <i class="icon-hdd-o"></i> <span> Resources </span> </a></li>
             <li><a href="/challenge"> <i class="icon-child"></i> <span> Challenge </span> </a></li>
             <li><a href=""> <i class="icon-square"> </i><span> Groups </span> </a></li>
-            <li class="active"><a href="/addcourse"> <i class="icon-globe"></i> <span> Addcourse </span> </a></li>
+            <li ><a href="/addcourse"> <i class="icon-globe"></i> <span> Addcourse </span> </a></li>
             <li><a href="course.php"> <i class="icon-globe"></i> <span> History </span> </a></li>
             <li><a href="/calendar"> <i class="fa-solid fa-calendar"></i></i> <span> Calendar</span> </a></li>
             <li><a href="settings.php"> <i class="icon-gears"> </i> <span> Settings </span> </a></li>
@@ -50,48 +51,67 @@
     <main>
 
         <div class="intro-div">
-            <b>Add Course Details</b>
+            <b>Account details page</b>
             </div>
         <br>
 
-
-                    <form class= "container"  method = "POST">
-            <div class="form-group">
-              <label for="exampleInputEmail1">Title</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Title"  name = "title">
-              
-            </div>
+        <main>
            
-            <div class="form-group">
-                <label for="exampleInputEmail1">Description</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter description" name = "description">
-                
+            <div class="card">
+                <div class="card-header">
+                    {{ current_user.name}}
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Welcome Back! {{ current_user.name}}</h5>
+                  <p class="card-text">Remember to update your record as soon as it changes</p>
+                  <a href="#" class="btn btn-primary">Explore</a>
+                </div>
               </div>
+        
+            <a href="{{ url_for('logout')}}">Logout</a>
+        
+          
+        
+            <br/><br/>
+            <strong>Name:</strong>
+            {{ current_user.name}}<br/>
+        
+            <strong>User ID:</strong>
+            {{ current_user.id}}<br/>
+        
+            <strong>Name:</strong>
+            {{ current_user.username}}<br/>
+        
+            <strong>Email:</strong>
+            {{ current_user.email}}<br/>
+        
+            <strong>Address:</strong>
+            {{ current_user.address}}<br/>
+        
+            <strong>Role:</strong>
+            {{ current_user.role}}<br/>
+        
+            <strong>Email Preference:</strong>
+            {{ current_user.email_preference}}<br/>
+        
+            </main>
+        </body>
+        <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='lib/wow/wow.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='lib/easing/easing.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='lib/waypoints/waypoints.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+        <script>
+            var d = new Date();
+            document.getElementById("demo").innerHTML = d.toLocaleDateString('en-US', {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric'
+            });
+        </script>
+        </html>
+        
 
-              <div class="form-group">
-                <label for="exampleInputEmail1">Category</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter category" name = "category">
-                
-              </div>
-
-              <div class="form-group">
-                <label for="exampleInputEmail1">Duration</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter duration" name = "duration">
-                
-              </div>
-
-              <div class="form-group">
-                <label for="exampleInputEmail1">Image</label>
-                <input type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Upload Image" name = "image">
-                
-              </div>
-              <div class="form-group">
-                <label for="exampleInputEmail1">instructor</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Title"  name = "Instructor">
-                
-              </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
     <!-- form End --> 
      
     </main>

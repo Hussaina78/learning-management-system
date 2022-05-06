@@ -195,6 +195,8 @@ def login():
     return render_template('login.html',form = form)
 
 
+
+## instructor contents
 @app.route('/logininstructor', methods=['GET' ,'POST'])
 def logininstructor():
     form = Logininstructor()
@@ -259,23 +261,44 @@ def addcourse():
     form = Addcourse()
     if request.method == "POST":
         form = request.form #is this right
-        email = request.form['email']
-        password = request.form['password']
-        remember = request.form['rememberme']
-        user = request.form['user']
+        title = request.form['title']
+        description = request.form['description']
+        category = request.form['category']
+        duration = request.form['duration']
+        image = request.form['image']
+        instructor = request.form['instructor']
+       
         
-        role = 'instructor'
-
-        print(User.query.filter_by(email=email).first().email)
-        if User.query.filter_by(email=email).first().email == email:
-            flash('Email Address already Exists', 'danger')
-        else:
-            hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-            user = User(name=user.lower(),email=email.lower(),password=hashed_password,role='instructor')
-            db.session.add(user)
-            db.session.commit()
-            return redirect(url_for('instructordashboard'))
+        user = Courses(title =title, description = description, category = category, duration = duration, image = image, instructor = Instructor)
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('instructordashboard'))
     return render_template('instructordashboard/addcourse.html',form = Addcourse())# alternatively you can use form = register
+
+@app.route('/account')
+def account():
+    if current_user.is_authenticated:
+     
+        return render_template('instructordashboard/account.html')
+    else:
+        return redirect(url_for('login'))
+
+@app.route('/subunits', methods=['GET' ,'POST'])
+def subunits():
+    form = Subunits()
+    if request.method == "POST":
+        form = request.form #is this right
+        title = request.form['title']
+        duration = request.form['duration']
+        link = request.form['link']
+        instructor = request.form['instructor']
+       
+        
+        user = Subunits(title =title, duration = duration, link = link, instructor = instructor)
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('instructordashboard'))
+    return render_template('instructordashboard/subunits.html',form = Addcourse())# alternatively you can use form = register
        
         
 

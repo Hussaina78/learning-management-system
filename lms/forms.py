@@ -47,3 +47,10 @@ class Addcourse(FlaskForm):
     duration = StringField('duration', render_kw={'placeholder':'Enter duration'}, validators=[DataRequired()])
     image = StringField('image', render_kw={'placeholder':'img'}, validators=[DataRequired()])
     submit = SubmitField('Sign Up')
+
+class Subunit(FlaskForm):
+   
+    title = StringField('title', render_kw={'placeholder':'Title'}, validators=[DataRequired()])
+    duration = StringField('duration', render_kw={'placeholder':'Enter duration'}, validators=[DataRequired()])
+    link = StringField('link', render_kw={'placeholder':'link'}, validators=[DataRequired()])
+    submit = SubmitField('Sign Up')
