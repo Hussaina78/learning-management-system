@@ -48,65 +48,109 @@
         <br>
     </nav>
     <main>
-
-        <div class="intro-div">
-            <b>Add Course Details</b>
-            </div>
-        <br>
-
-
-                    <form class= "container"  method = "POST">
-            <div class="form-group">
-              <label for="exampleInputEmail1">Title</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Title"  name = "title">
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="utf-8">
+          <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <title> Instructor Dashboard</title>
+        
+          <!-- Libraries Stylesheet -->
+          <link href="{{ url_for('static', filename='lib/animate/animate.min.css') }}" rel="stylesheet">
+          <link href="{{ url_for('static', filename='lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+      
+          <!-- Customized Bootstrap Stylesheet -->
+          <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+      
+      
+          <!-- Template Stylesheet -->
+          <link href="{{ url_for('static', filename='fonts//icomoon/style.css') }}" rel="stylesheet">
+          <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+          <link href="{{ url_for('static', filename='css/instructordashboard.css') }}" rel="stylesheet">
+      </head>
+      <style type="text/css">
+         
+      </style>
+      <body>
+          <i class="icon-bars"></i>
+          <nav>
+              <br>
+              <br>
+              <br>
+              <ul>
+                <li><a href="/instructordashboard"><i class="icon-dashboard"></i><span> Instructor Dashboard</span> </a></li>
+                <li><a href="/instructor/students"> <i class="icon-user"></i> <span> Students</span> </a></li>
+                <li><a href="/instructor/courses"> <i class="icon-globe"></i> <span> Courses </span> </a></li>
+                <li class="active"><a href="/addcourse"> <i class="icon-book"></i> <span> Create Course </span> </a></li>
+                <li><a href="/account"> <i class="icon-globe"></i> <span>Account </span> </a></li>
+                <li><a href="/resources"> <i class="icon-hdd-o"></i> <span> Resources </span> </a></li>
+                <li><a href="/subunits"> <i class="icon-gears"> </i> <span> Subunits </span> </a></li>
+                <li><a href="#"> <i class="icon-gears"> </i> <span> Settings </span> </a></li>
+                <li><a href="#"> <i class="icon-globe"></i> <span> Help </span> </a></li>
+                <li><a href="/logout"> <i class="icon-power-off"> </i> <span> Log out </span> </a></li>
+            </ul>
               
-            </div>
+              
+                 
+             
+              <br>
+          </nav>
+          <main>
+      
+              <div class="intro-div">
+                  <b>Add Course Details</b>
+                  </div>
+              <br>
+      
+      
+                          <form class= "container"  method = "POST" enctype="multipart/form-data">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Title</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Title"  name = "title">
+                    
+                  </div>
+                 
+                  <div class="form-group">
+                      <label for="exampleInputEmail1">Description</label>
+                      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter description" name = "description">
+                      
+                    </div>
+      
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Category</label>
+                      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter category" name = "category">
+                      
+                    </div>
+      
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Duration</label>
+                      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter duration" name = "duration">
+                      
+                    </div>
+      
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Image</label>
+                      <input type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Upload Image" name = "image">
+                      
+                    </div>
+                  <button type="submit" class="btn btn-primary" style="background-color: aquamarine;">Submit</button>
+                </form>
+          <!-- form End --> 
            
-            <div class="form-group">
-                <label for="exampleInputEmail1">Description</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter description" name = "description">
-                
-              </div>
-
-              <div class="form-group">
-                <label for="exampleInputEmail1">Category</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter category" name = "category">
-                
-              </div>
-
-              <div class="form-group">
-                <label for="exampleInputEmail1">Duration</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter duration" name = "duration">
-                
-              </div>
-
-              <div class="form-group">
-                <label for="exampleInputEmail1">Image</label>
-                <input type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Upload Image" name = "image">
-                
-              </div>
-              <div class="form-group">
-                <label for="exampleInputEmail1">instructor</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Title"  name = "Instructor">
-                
-              </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
-    <!-- form End --> 
-     
-    </main>
-    
-    <main>
-    
-
-
-
-
-
-
-
-
-
-
-
-
+          </main>
+          
+          <main>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      

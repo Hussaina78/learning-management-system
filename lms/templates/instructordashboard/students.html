@@ -29,8 +29,8 @@
         <br>
         <ul>
             <li ><a href="/instructordashboard"><i class="icon-dashboard"></i><span> Instructor Dashboard</span> </a></li>
-            <li ><a href="/instructor/students"> <i class="icon-user"></i> <span> Students</span> </a></li>
-            <li class="active"><a href="/instructor/courses"> <i class="icon-globe"></i> <span> Courses </span> </a></li>
+            <li class="active"><a href="/instructor/students"> <i class="icon-user"></i> <span> Students</span> </a></li>
+            <li><a href="/instructor/courses"> <i class="icon-globe"></i> <span> Courses </span> </a></li>
             <li><a href="/addcourse"> <i class="icon-book"></i> <span> Create Course </span> </a></li>
             <li><a href="/account"> <i class="icon-globe"></i> <span>Account </span> </a></li>
             <li><a href="/resources"> <i class="icon-hdd-o"></i> <span> Resources </span> </a></li>
@@ -52,39 +52,30 @@
         <span id="time" class="time"></span>
     </div>
     <br>
-    <div>              
-        <a class="btn btn-primary" href="#" role="button">All</a>
-        <a class="btn btn-primary" href="#" role="button">Programming</a>
-        <a class="btn btn-primary" href="#" role="button">English</a>
-        <a class="btn btn-primary" href="#" role="button">Maths</a>
-        <a class="btn btn-primary" href="#" role="button">Robotics</a>
-        <a class="btn btn-primary" href="#" role="button">Other</a>
-    </div>
-   
-   
-    <br>
-    <br>
-    <div style="display:flex;justify-content:space-between;align-items: center;">
-        <h5>Courses</h5>
-    </div>
-    <div class="row">
-        {% for x in course %}
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img src="{{ url_for('static', filename='img/') }}{{x.image}}" class="card-img-top" alt="">
-                <div class="card-body">
-                  <h5 class="card-title">{{x.title}}</h5>
-                  <p class="card-text">{{x.description}}</p>
-                  <a href="/subunits/{{x.id}}" class="btn btn-primary" style="width: 159px;"><span>add subunit</span></a>
-                </div>
-              </div>
-        </div>    
-        {% endfor %}
-        
-                       
-    </div>
-
-
+    
+    
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">email</th>
+            <th scope="col">address</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for i in user%}
+          <tr>
+            <th scope="row">{{loop.index}}</th>
+            <td>{{i.name}}</td>
+            <td>{{i.email}}</td>
+            <td>{{i.address}}</td>
+          </tr>
+          {%endfor%}
+          
+        </tbody>
+      </table>
+      
   
 
     <br/><br/>

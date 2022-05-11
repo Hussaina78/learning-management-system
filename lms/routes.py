@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, redirect, request ,send_from_directory,make_response,jsonify
+from flask import render_template, url_for, flash, redirect, request 
 from lms import app,db,bcrypt
 from .forms import Logininstructor, Registration,Login,Registerinstructor, Addcourse
 from .models import User, Courses, Usercourse, Discussion, Subunits, Resources
@@ -20,6 +20,11 @@ def dashboard():
     else:
         return redirect(url_for('login'))
 
+@app.route('/chat')
+def chat(): 
+     return render_template('dashboard/chat.html')
+ 
+       
 
 
 def enroll_checker(courseid, userid):
@@ -174,7 +179,7 @@ def login():
         form = request.form
         email = request.form['email']
         password = request.form['password']
-        if request.form['rememberme']:
+        if request.form.get('rememberme'):
             remember = request.form['rememberme']
         else:
             remember = 'no'
@@ -206,7 +211,10 @@ def logininstructor():
         form = request.form
         email = request.form['email']
         password = request.form['password']
-        remember = request.form['rememberme']
+        if request.form.get('rememberme'):
+            remember = request.form['rememberme']
+        else:
+            remember = 'no'
         user = User.query.filter_by(email=email).first()
         if user and bcrypt.check_password_hash(user.password, password):
             login_user(user, remember=remember)
@@ -243,20 +251,26 @@ def registerinstructor():
         coursecode = request.form['coursecode']
        
         role = 'instructor'
-
-        print(User.query.filter_by(email=email).first().email)
-        if User.query.filter_by(email=email).first().email == email:
+        if User.query.filter_by(email=email).first():
             flash('Email Address already Exists', 'danger')
         else:
             hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-            user = User(name=username.lower(),email=email.lower(),password=hashed_password,role='instructor')
+            user = User(name=username.lower(),email=email.lower(),password=hashed_password,role='instructor',email_preference = 'yes')
             db.session.add(user)
             db.session.commit()
             return redirect(url_for('instructordashboard'))
     return render_template('registerinstructor.html',form = Registerinstructor())# alternatively you can use form = register
 
 
+def save_picture(picture_file):
+    picture = picture_file.filename
+    picture_path = os.path.join(app.root_path, 'static/img', picture)
+    picture_file.save(picture_path)
+    return picture
+
+
 @app.route('/addcourse', methods=['GET' ,'POST'])
+@login_required
 def addcourse():
     form = Addcourse()
     if request.method == "POST":
@@ -265,14 +279,17 @@ def addcourse():
         description = request.form['description']
         category = request.form['category']
         duration = request.form['duration']
-        image = request.form['image']
-        instructor = request.form['instructor']
-       
-        
-        user = Courses(title =title, description = description, category = category, duration = duration, image = image, instructor = Instructor)
+        file = request.files["image"]
+        if file.filename == "":
+            flash('Please select a file', 'danger')
+        if file:
+            picture_file = save_picture(file)
+            image_url = url_for('static', filename='img/' + picture_file)
+            file = secure_filename(file.filename)
+        user = Courses(title =title, description = description, category = category, duration = duration, image = picture_file, instructor = current_user.name)
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for('instructordashboard'))
+        return redirect(url_for('instructorcourses'))
     return render_template('instructordashboard/addcourse.html',form = Addcourse())# alternatively you can use form = register
 
 @app.route('/account')
@@ -283,22 +300,40 @@ def account():
     else:
         return redirect(url_for('login'))
 
-@app.route('/subunits', methods=['GET' ,'POST'])
-def subunits():
+@app.route('/instructor/students')
+@login_required
+def instructorstudent():
+    if current_user.is_authenticated:
+        students = User.query.filter_by(role = "user").all()
+        return render_template('instructordashboard/students.html', user = students)
+    else:
+        return redirect(url_for('login'))
+
+@app.route('/instructor/courses')
+@login_required
+def instructorcourses():
+    if current_user.is_authenticated:
+        courses = Courses.query.filter_by(instructor = current_user.name).all()
+        return render_template('instructordashboard/courses.html', course = courses)
+    else:
+        return redirect(url_for('login'))
+
+@app.route('/subunits/<id>', methods=['GET' ,'POST'])
+@login_required
+def subunits(id=''):
+    id = id
+    courses = Courses.query.filter_by(id = id).first()
     form = Subunits()
     if request.method == "POST":
         form = request.form #is this right
         title = request.form['title']
         duration = request.form['duration']
         link = request.form['link']
-        instructor = request.form['instructor']
-       
-        
-        user = Subunits(title =title, duration = duration, link = link, instructor = instructor)
+        user = Subunits(title =title, duration = duration, link = link, course_id = id)
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for('instructordashboard'))
-    return render_template('instructordashboard/subunits.html',form = Addcourse())# alternatively you can use form = register
+        return redirect('/subunits/{}'.format(id))
+    return render_template('instructordashboard/subunits.html',form = Addcourse(), course = courses)# alternatively you can use form = register
        
         
 
