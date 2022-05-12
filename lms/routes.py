@@ -1,3 +1,4 @@
+from cgitb import html
 from flask import render_template, url_for, flash, redirect, request 
 from lms import app,db,bcrypt
 from .forms import Logininstructor, Registration,Login,Registerinstructor, Addcourse
@@ -12,7 +13,13 @@ def home():
     courses = Courses.query.all()
     return render_template('index.html', data = courses)
 
+@app.route('/404.html')
+def pagenotfound():
+    #404 status is set explicitly
+        return render_template('404.html') 
+
 @app.route('/dashboard')
+@login_required
 def dashboard():
     if current_user.is_authenticated:
         course = Usercourse.query.join(User, Usercourse.user_id == User.id).join(Courses, Usercourse.course_id == Courses.id).filter(Usercourse.user_id == current_user.id).all()
@@ -46,7 +53,8 @@ def courses():
             form = request.form
             userid = request.form['user_id']
             courseid = request.form['course_id']
-            user = Usercourse(user_id=userid,course_id=courseid,progress = '0')
+            author = request.form['author']
+            user = Usercourse(user_id=userid,course_id=courseid,progress = '0', author = author)
             db.session.add(user)
             db.session.commit()
             return redirect(url_for('courses'))
@@ -130,9 +138,11 @@ def admindashboard():
 
 
 @app.route('/instructordashboard', methods=['GET' ,'POST'])
-#@login_required
+
 def instructordashboard():
     if current_user.is_authenticated:
+        print(current_user.name)
+        data = Usercourse.query.join(User).join(Courses).filter(Usercourse.author == current_user.name).all()
         return render_template('instructordashboard/index.html')
     else:
         return redirect(url_for('logininstructor'))
@@ -220,7 +230,7 @@ def logininstructor():
             login_user(user, remember=remember)
             if current_user.role== "user":
                 #  next_page = request.args.get('next')#requests current url and redirects to next page otherwise it returns to the dashboard
-                return redirect(url_for('dashboard'))
+                return redirect(url_for('404.html'))
             elif current_user.role== "instructor":
             #  next_page = request.args.get('next')#requests current url and redirects to next page otherwise it returns to the dashboard
                 return redirect(url_for('instructordashboard'))

@@ -93,6 +93,7 @@
                       <form method="POST"> 
                         <input type="hidden" name="user_id" value="{{current_user.id}}"/>
                         <input type="hidden" name="course_id" value="{{x[0].id}}"/>
+                        <input type="hidden" name="author" value="{{x[0].instructor}}"/>
                         <button class="btn btn-primary">Enroll</button>
                        </form>
                       {% endif %}
