@@ -123,34 +123,9 @@ def challenge():
 @app.route('/admindashboard')
 def admindashboard():
     if current_user.is_authenticated:
-        return render_template('admindashboard.html')
+        return render_template('admindashboard/index.html')
     else:
         return redirect(url_for('login'))
-
-
-
-
-
-
-
-
-
-
-
-@app.route('/instructordashboard', methods=['GET' ,'POST'])
-
-def instructordashboard():
-    if current_user.is_authenticated:
-        print(current_user.name)
-        data = Usercourse.query.join(User).join(Courses).filter(Usercourse.author == current_user.name).all()
-        return render_template('instructordashboard/index.html')
-    else:
-        return redirect(url_for('logininstructor'))
-
-
-
-
-
 
 
 
@@ -212,6 +187,17 @@ def login():
 
 
 ## instructor contents
+
+@app.route('/instructordashboard', methods=['GET' ,'POST'])
+
+def instructordashboard():
+    if current_user.is_authenticated:
+        print(current_user.name)
+        data = Usercourse.query.join(User).join(Courses).filter(Usercourse.author == current_user.name).all()
+        return render_template('instructordashboard/index.html')
+    else:
+        return redirect(url_for('logininstructor'))
+
 @app.route('/logininstructor', methods=['GET' ,'POST'])
 def logininstructor():
     form = Logininstructor()
@@ -240,11 +226,6 @@ def logininstructor():
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('logininstructor.html',form = form)
-
-
-#@app.route('/registerinstructor')
-#def registerinstructor():
-    #return render_template('registerinstructor.html')
 
 
 @app.route('/registerinstructor', methods=['GET','POST'])

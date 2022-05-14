@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-	<title>Admin Dashboard</title>
+	<title> Admin Dashboard</title>
 	
     <!-- Libraries Stylesheet -->
     <link href="{{ url_for('static', filename='lib/animate/animate.min.css') }}" rel="stylesheet">
@@ -16,7 +16,7 @@
     <!-- Template Stylesheet -->
     <link href="{{ url_for('static', filename='fonts//icomoon/style.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/dashboard.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/admindashboard.css') }}" rel="stylesheet">
 </head>
 <style type="text/css">
    
@@ -28,12 +28,14 @@
         <br>
         <br>
         <ul>
-            <li class="active"><a href="dashboard.php"><i class="icon-dashboard"></i><span> Dashboard</span> </a></li>
-            <li><a href=""> <i class="icon-globe"></i> <span> Courses </span> </a></li>
-            <li><a href=""> <i class="icon-hdd-o"></i> <span> Resources </span> </a></li>
-            <li><a href=""> <i class="icon-child"></i> <span> Challenge </span> </a></li>
-            <li><a href=""> <i class="icon-square"> </i><span> Q and A </span> </a></li>
-            <li><a href=""> <i class="icon-gears"> </i> <span> Settings </span> </a></li>
+            <li class="active"><a href="/admindashboard"><i class="icon-dashboard"></i><span> Admin Dashboard</span> </a></li>
+            <li><a href="/"> <i class="icon-home"></i> <span> Home Page</span> </a></li>
+            <li><a href="/admin/user"> <i class="icon-user"></i> <span>All Users </span> </a></li>
+            <li><a href="/admin/usercourse"> <i class="icon-book"></i> <span> User Course </span> </a></li>
+            <li><a href="/admin/courses"> <i class="icon-book"></i> <span>Courses </span> </a></li>
+            <li><a href="/admin/resources"> <i class="icon-hdd-o"></i> <span> Resources </span> </a></li>
+            <li><a href="/admin/discussion"> <i class="icon-chat"> </i> <span> Discussion </span> </a></li>
+            <li><a href="/admin/subunits"> <i class="icon-book"></i> <span> Subunits </span> </a></li>
             <li><a href="/logout"> <i class="icon-power-off"> </i> <span> Log out </span> </a></li>
         </ul>
         
@@ -42,23 +44,26 @@
        
         <br>
     </nav>
+       
     <main>
-        <div class="intro-div">
-            <b>Dashboard</b>
-            <span id="time" class="time"></span>
-        </div>
-        <br>
         <div class="jumbotron">
             <br><br>
-            <h4>Welcome back, {{current_user.name|upper}}. </h4>
-            <span>You've Learnt About 0% of your goals this week</span> <br>
+            <h4> {{current_user.name|upper}} </h4>
+            <span></span> <br>
             <span>Keep it up to improve your results</span>
             <br><br>
         </div>
-        
-        <header>My Courses</header>
+    <div class="intro-div">
+        <b>Dashboard</b>
+        <span id="time" class="time"></span>
+    </div>
+    <br>
+    
 
-     
+  
+
+    <br/><br/>
+    
     </main>
 </body>
 <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
@@ -68,6 +73,10 @@
 <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 <script>
     var d = new Date();
-    document.getElementById("time").innerHTML = d.toDateString();
+    document.getElementById("demo").innerHTML = d.toLocaleDateString('en-US', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric'
+    });
 </script>
 </html>
