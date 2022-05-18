@@ -87,7 +87,7 @@ class Resources(db.Model):
 
 admin.add_view(ModelView(User, db.session))
 admin.add_view(ModelView(Usercourse, db.session))
-admin.add_view(ModelView(Courses, db.session))
-admin.add_view(ModelView(Discussion, db.session))
-admin.add_view(ModelView(Subunits, db.session))
-admin.add_view(ModelView(Resources, db.session))
+#admin.add_view(ModelView(Courses, db.session))
+#admin.add_view(ModelView(Discussion, db.session))
+#admin.add_view(ModelView(Subunits, db.session))
+#admin.add_view(ModelView(Resources, db.session))

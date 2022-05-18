@@ -1,7 +1,7 @@
 from cgitb import html
 from flask import render_template, url_for, flash, redirect, request 
 from lms import app,db,bcrypt
-from .forms import Logininstructor, Registration,Login,Registerinstructor, Addcourse
+from .forms import Logininstructor,Loginadmin, Registration,Login,Registerinstructor, Addcourse
 from .models import User, Courses, Usercourse, Discussion, Subunits, Resources
 from flask_login import login_user, current_user, logout_user, login_required
 from werkzeug.utils import secure_filename
@@ -114,24 +114,6 @@ def challenge():
 
 
 
-
-
-
-
-
-
-@app.route('/admindashboard')
-def admindashboard():
-    if current_user.is_authenticated:
-        return render_template('admindashboard/index.html')
-    else:
-        return redirect(url_for('login'))
-
-
-
-
-
-
 #Authentication 
 @app.route('/register', methods=['GET' ,'POST'])
 def register():
@@ -176,13 +158,19 @@ def login():
                 return redirect(url_for('dashboard'))
             elif current_user.role== "instructor":
               #  next_page = request.args.get('next')#requests current url and redirects to next page otherwise it returns to the dashboard
-                return redirect(url_for('instructordashboard'))
+                logout_user()
+                flash("You do not have permission to login")
+                return redirect(url_for('login'))
             elif current_user.role== "admin":
               #  next_page = request.args.get('next')#requests current url and redirects to next page otherwise it returns to the dashboard
                 return redirect(url_for('admindashboard'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html',form = form)
+
+
+
+
 
 
 
@@ -216,7 +204,9 @@ def logininstructor():
             login_user(user, remember=remember)
             if current_user.role== "user":
                 #  next_page = request.args.get('next')#requests current url and redirects to next page otherwise it returns to the dashboard
-                return redirect(url_for('404.html'))
+                logout_user()
+                flash("You do not have permission to login")
+                return redirect(url_for('login'))
             elif current_user.role== "instructor":
             #  next_page = request.args.get('next')#requests current url and redirects to next page otherwise it returns to the dashboard
                 return redirect(url_for('instructordashboard'))
@@ -329,7 +319,204 @@ def subunits(id=''):
         
 
     
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Create Admin Page
+@app.route('/admindashboard')
+def admindashboard():
+    if current_user.is_authenticated:
+        return render_template('admindashboard/index.html')
+    else:
+        return redirect(url_for('login'))
+
+@app.route('/loginadmin2')
+def loginadmin2():
+    #if current_user.is_authenticated:
+       # return render_template('admindashboard/index.html')
+    #else:
+        return render_template('loginadmin2.html')
+
+
+#admin subunits folder
+@app.route('/adminsubunits/<id>', methods=['GET' ,'POST'])
+@login_required
+def adminsubunits(id=''):
+    id = id
+    courses = Courses.query.filter_by(id = id).first()
+    form = Subunits()
+    if request.method == "POST":
+        form = request.form #is this right
+        title = request.form['title']
+        duration = request.form['duration']
+        link = request.form['link']
+        user = Subunits(title =title, duration = duration, link = link, course_id = id)
+        db.session.add(user)
+        db.session.commit()
+        return redirect('/adminsubunits/{}'.format(id))
+    return render_template('admindashboard/adminsubunits.html',form = Addcourse(), course = courses)# alternatively you can use form = register
+
+@app.route('/loginadmin', methods=['GET' ,'POST'])
+def loginadmin():
+    form = Loginadmin()
+    if current_user.is_authenticated:
+        return redirect(url_for('admindashboard'))
+    if request.method == "POST":
+        form = request.form
+        email = request.form['email']
+        password = request.form['password']
+        if request.form.get('rememberme'):
+            remember = request.form['rememberme']
+        else:
+            remember = 'no'
+        user = User.query.filter_by(email=email).first()
+        if user and bcrypt.check_password_hash(user.password, password):
+            login_user(user, remember=remember)
+            if current_user.role== "user":
+                logout_user()
+            elif current_user.role== "instructor":
+                   return redirect(url_for('/login'))
+            elif current_user.role== "admin":
+                  return redirect(url_for('admindashboard'))
+        else:
+            flash('Login Unsuccessful. Please check email and password', 'danger')
+    return render_template('loginadmin.html',form = form)
+
+#@app.route('/registeradmin', methods=['GET','POST'])
+#def registeradmin():
+    #form = Registeradmin()#am getting an error here
+    #if request.method =='GET':
+    #   return "Register via the Registration Page"
+    #if request.method == "POST":
+     #   form = request.form #is this right
+       # email = request.form['email']
+       # password = request.form['password']
+      #  confirmpassword = request.form['confirmpassword']
+       # username = request.form['username']
+               
+      #  role = 'admin'
+      #  if User.query.filter_by(email=email).first():
+       #     flash('Email Address already Exists', 'danger')
+       # else:
+        #    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+         #   user = User(name=username.lower(),email=email.lower(),password=hashed_password,role='admin',email_preference = 'yes')
+         #   db.session.add(user)
+         #   db.session.commit()
+          #  return redirect(url_for('admindashboard'))
+   # return render_template('registeradmin.html',form = Registeradmin())# alternatively you can use form = register
+
+
+@app.route('/admindashboard/account')
+def adminaccount():
+    if current_user.is_authenticated:
+     
+        return render_template('admindashboard/account.html')
+    else:
+        return redirect(url_for('login'))
+
+#@app.route('/adminallstudents')
+#@login_required
+#def adminstudents():
+ #   if current_user.is_authenticated:
+    #    users = User.query.filter_by(role = "user").all()
+    #    return render_template('admindashboard/allstudents.html', user = users)
+    #else:
+      #  return redirect(url_for('login'))
+
+@app.route('/admindashboard/allinstructors')
+@login_required
+def admininstructors():
+    if current_user.is_authenticated:
+        instructor = User.query.filter_by(role = "instructor").all()
+        return render_template('admindashboard/allinstructors.html',user = instructor)
+    else:
+        return redirect(url_for('login'))
+
+@app.route('/admindashboard/allstudents')
+@login_required
+def adminstudents():
+    if current_user.is_authenticated:
+        students = User.query.filter_by(role = "user").all()
+        return render_template('admindashboard/allstudents.html', user = students)
+    else:
+        return redirect(url_for('login'))
+
+@app.route('/admindashboard/courses')
+@app.route('/admindashboard/courses/delete/<delete_id>')
+@login_required
+def admincourses(delete_id=""):
+    if current_user.is_authenticated:
+        courses = Courses.query.all()
+        if delete_id:
+            course = Courses.query.filter_by(id=delete_id).first()
+            db.session.delete(course)
+            db.session.commit()
+            return redirect(url_for('admincourses'))
+        return render_template('admindashboard/courses.html', course = courses)
+    else:
+        return redirect(url_for('login'))
+
+@app.route('/admindashboard/resources')
+@login_required
+def adminresources():
+    if current_user.is_authenticated:
+        resources = Resources.query.all()
+        return render_template('admindashboard/resources.html', resource = resources)
+    else:
+        return redirect(url_for('login'))
+
+
+
+
+
 @app.route("/logout", methods=['GET', 'POST'])
 @login_required
 def logout():

@@ -1,0 +1,59 @@
+{% extends 'layout.html'%}
+{% block container %}
+<!--  the message above indicates to start the container-->
+
+
+
+    <!-- form Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3" style="margin-bottom: 30px;">Admin Login</h6>
+                <br>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-6 col-md-12 wow fadeInUp" data-wow-delay="0.5s">
+                    <form method = "POST">
+                        <div class="row g-3">
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                  
+                                    {{form.email.label}} {{form.email(class = "form-control")}}
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                   <!-- <input type="password" class="form-control" id="name" placeholder="Password">
+                                    <label for="name">Password</label> -->
+                                    {{form.password.label}} {{form.password(class = "form-control")}}
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                    <input type="checkbox" name="rememberme" id="name">
+                                    <label for="name">Do you want me to stay logged in</label>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary w-100 py-3" type="submit">Login as Admin</button>
+                            </div>
+                           
+                            
+                            </div>
+                    </form>
+                </div>
+                <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.1s" style="text-align: center;">
+                       
+                        Happy with we have to offer? you will need to create an account. </p>
+                        <a href="/registeradmin" style="text-align: center;" class="btn btn-primary py-md-3 px-md-5 animated slideInRight">Create new account or Register</a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <!-- form End -->
+
+
+
+
+
+{% endblock%}

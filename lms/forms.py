@@ -28,6 +28,14 @@ class Logininstructor(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Sign Up')
 
+class Loginadmin(FlaskForm):
+   
+    email = StringField('Email', render_kw={'placeholder':'Email'}, validators=[DataRequired(), Email()])
+    rememberme = BooleanField('Keep me logged in? ')
+    password = PasswordField('Password', validators=[DataRequired()])
+    submit = SubmitField('Sign Up')
+
+
 class Registerinstructor(FlaskForm):
    
     email = StringField('Email', render_kw={'placeholder':'Email'}, validators=[DataRequired(), Email()])
@@ -38,6 +46,8 @@ class Registerinstructor(FlaskForm):
     rememberme = BooleanField('Keep me logged in? ')
     
     submit = SubmitField('Sign Up')
+
+
 
 class Addcourse(FlaskForm):
    

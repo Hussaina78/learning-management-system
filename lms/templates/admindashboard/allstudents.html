@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-	<title> Admin Dashboard</title>
+	<title> Instructor Dashboard</title>
 	
     <!-- Libraries Stylesheet -->
     <link href="{{ url_for('static', filename='lib/animate/animate.min.css') }}" rel="stylesheet">
@@ -24,20 +24,19 @@
 <body>
     <i class="icon-bars"></i>
     <nav>
-        
         <br>
         <br>
         <br>
         <ul>
-            <li class="active"><a href="/admindashboard"><i class="icon-dashboard"></i><span> Admin Dashboard</span> </a></li>
-            <li><a href="/admindashboard/account"> <i class="icon-home"></i> <span> Account</span> </a></li>
-            <li><a href="/admindashboard/allstudents"> <i class="icon-user"></i> <span>All Students </span> </a></li>
-            <li><a href="/admindashboard/usercourse"> <i class="icon-book"></i> <span> User Course </span> </a></li>
-            <li><a href="/admindashboard/courses"> <i class="icon-book"></i> <span>Courses </span> </a></li>
-            <li><a href="/admindashboard/resources"> <i class="icon-hdd-o"></i> <span> Resources </span> </a></li>
-            <li><a href="/admindashboard/discussion"> <i class="icon-chat"> </i> <span> Discussion </span> </a></li>
-            <li><a href="/admindashboard/subunits"> <i class="icon-book"></i> <span> Subunits </span> </a></li>
-            <li><a href="/logout"> <i class="icon-power-off"> </i> <span> Log out </span> </a></li>
+          <li><a href="/admindashboard"><i class="icon-dashboard"></i><span> Admin Dashboard</span> </a></li>
+          <li><a href="/admindashboard/account"> <i class="icon-home"></i> <span> Account</span> </a></li>
+          <li class="active"><a href="/admindashboard/allstudents"> <i class="icon-user"></i> <span>All Students </span> </a></li>
+          <li><a href="/admindashboard/allinstructors"> <i class="icon-user"></i> <span>All Instructors </span> </a></li>
+          <li><a href="/admindashboard/usercourse"> <i class="icon-book"></i> <span> User Course </span> </a></li>
+          <li><a href="/admindashboard/courses"> <i class="icon-book"></i> <span>Courses </span> </a></li>
+          <li><a href="/admindashboard/resources"> <i class="icon-hdd-o"></i> <span> Resources </span> </a></li>
+          <li><a href="/admindashboard/discussion"> <i class="icon-chat"> </i> <span> Discussion </span> </a></li>
+           <li><a href="/logout"> <i class="icon-power-off"> </i> <span> Log out </span> </a></li>
         </ul>
         
         
@@ -47,33 +46,35 @@
     </nav>
        
     <main>
-        
-        <div class="intro-div">
-            <b>Dashboard</b>
-            <span id="time" class="time"></span>
-        </div>
-
-       
-        <br>
-        <div class="jumbotron">
-            <br><br>
-            <h1>Welcome Back</h1>
-            <h4> {{current_user.name|upper}} </h4>
-            <span></span> <br>
-            <span></span>
-            <br><br>
-        </div>
-       <!--<div class="jumbotron jumbotron-fluid">
-            <div class="container">
-              <h1>Bootstrap Tutorial</h1>
-              <p>Remember to add updates on this page</p>
-            </div>
-          </div>
-          --> 
+    <div class="intro-div">
+        <b>Students</b>
+        <span id="time" class="time"></span>
+    </div>
+    <br>
+    
+    
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">email</th>
+            <th scope="col">address</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for i in user%}
+          <tr>
+            <th scope="row">{{loop.index}}</th>
+            <td>{{i.name}}</td>
+            <td>{{i.email}}</td>
+            <td>{{i.address}}</td>
+          </tr>
+          {%endfor%}
           
-    
-    
-
+        </tbody>
+      </table>
+      
   
 
     <br/><br/>

@@ -30,8 +30,8 @@
             <li <a href="/courses"> <i class="icon-globe"></i> <span> Courses </span> </a></li>
             <li class="active"><a href="/resources"> <i class="icon-hdd-o"></i> <span> Resources </span> </a></li>
             <li><a href="/challenge"> <i class="icon-child"></i> <span> Challenge </span> </a></li>
-            <li><a href="Q&A.php"> <i class="icon-square"> </i><span> Q and A </span> </a></li>
-            <li><a href="settings.php"> <i class="icon-gears"> </i> <span> Settings </span> </a></li>
+            <li><a href=""> <i class="icon-square"> </i><span> Q and A </span> </a></li>
+            <li><a href=""> <i class="icon-gears"> </i> <span> Settings </span> </a></li>
             <li><a href="/logout"> <i class="icon-power-off"> </i> <span> Log out </span> </a></li>
         </ul>
         
@@ -66,6 +66,37 @@
 
         </div>
        
+        <div class="ttt row">
+            <ul style="display: flex;justify-content: space-around;flex-wrap: wrap;">
+                {% for i in resource %}
+
+                <li style="background-color:white;">
+                    <div>
+                    <a href="" class="controls">
+                    <div class="div-image">
+                        <img src="static/img/{{i.img_reference}}" width="100%" height="200px">
+                    </div>
+                    <div>
+                        <b>{{i.title}}</b> <br>
+                        <small>{{i.author}}</small> <br>
+                        <code>{{i.pages}} </code> 
+                    </div>
+                    </a>
+                    <a class="btn btn-primary" href="#" role="button">Download</a>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul> 
+        </div>
+        <style>
+           .ttt li{
+                box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+                padding:10px;
+                width:230px;
+            }
+        </style>
+       
+        
        
         
     </main>
